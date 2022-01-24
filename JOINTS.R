@@ -33,8 +33,8 @@ write.csv(JOINTS,'cleaned_JOINTS.csv')
 # Calculate corresponding difference between infection group and control group for each strain each sex
 for (cc in unique(JOINTS$cc_id)) {
   for (g in unique(JOINTS$gender)) {
-    JOINTS[JOINTS$cc_id == cc & JOINTS$gender == g & JOINTS$group == "I", 4:8] = JOINTS[JOINTS$cc_id == cc & JOINTS$gender == g & JOINTS$group == "I", 4:8]
-    - rbind(JOINTS[JOINTS$cc_id == cc & JOINTS$gender == g & JOINTS$group == "C", 4:8], JOINTS[JOINTS$cc_id == cc & JOINTS$gender == g & JOINTS$group == "C", 4:8])
+    JOINTS[JOINTS$cc_id == cc & JOINTS$gender == g & JOINTS$group == "I", 4:8] =
+      JOINTS[JOINTS$cc_id == cc & JOINTS$gender == g & JOINTS$group == "I", 4:8] - rbind(JOINTS[JOINTS$cc_id == cc & JOINTS$gender == g & JOINTS$group == "C", 4:8], JOINTS[JOINTS$cc_id == cc & JOINTS$gender == g & JOINTS$group == "C", 4:8])
   }
 }
 JOINTS_DIFF = JOINTS[JOINTS$group == "I", ]

@@ -40,8 +40,8 @@ write.csv(OTHERS, 'cleaned_OTHERS.csv')
 # Calculate corresponding difference between infection group and control group for each strain each sex
 for (cc in unique(OTHERS$cc_id)) {
   for (g in unique(OTHERS$gender)) {
-    OTHERS[OTHERS$cc_id == cc & OTHERS$gender == g & OTHERS$group == "I", 4:8] = OTHERS[OTHERS$cc_id == cc & OTHERS$gender == g & OTHERS$group == "I", 4:8]
-    - rbind(OTHERS[OTHERS$cc_id == cc & OTHERS$gender == g & OTHERS$group == "C", 4:8], OTHERS[OTHERS$cc_id == cc & OTHERS$gender == g & OTHERS$group == "C", 4:8])
+    OTHERS[OTHERS$cc_id == cc & OTHERS$gender == g & OTHERS$group == "I", 4:8] =
+      OTHERS[OTHERS$cc_id == cc & OTHERS$gender == g & OTHERS$group == "I", 4:8] - rbind(OTHERS[OTHERS$cc_id == cc & OTHERS$gender == g & OTHERS$group == "C", 4:8], OTHERS[OTHERS$cc_id == cc & OTHERS$gender == g & OTHERS$group == "C", 4:8])
   }
 }
 OTHERS_DIFF = OTHERS[OTHERS$group == "I", ]
