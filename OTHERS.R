@@ -88,14 +88,20 @@ saveWidget(intersex_OTHERS_heatmap, file = "intersex_OTHERS.html")
 
 # Generate overall inter-sex p-value
 p_value_vec = data.frame(matrix(NA, 1, 5))
+average_vec = matrix(NA, 2, 5)
+rownames(average_vec) = c("M", "F")
+average_vec = data.frame(average_vec)
+
 for (ind in 3:7) {
   skip_to_next <- FALSE
   p_value_vec[1, (ind - 2)] = as.numeric(tryCatch(t.test(as.numeric(OTHERS_DIFF[OTHERS_DIFF$gender == "M", ind]), as.numeric(OTHERS_DIFF[OTHERS_DIFF$gender == "F", ind]), alternative = "two.sided", pair = F)$p.value, error = function(e) {skip_to_next <- NA}))
+  average_vec[1, (ind - 2)] = mean(as.numeric(OTHERS_DIFF[OTHERS_DIFF$gender == "M", ind]), na.rm = TRUE)
+  average_vec[2, (ind - 2)] = mean(as.numeric(OTHERS_DIFF[OTHERS_DIFF$gender == "F", ind]), na.rm = TRUE)
   if(is.na(skip_to_next)) {next}     
 }
-colnames(p_value_vec) = names(OTHERS_DIFF)[3:7]
+colnames(p_value_vec) = colnames(average_vec) = names(OTHERS_DIFF)[3:7]
 write.csv(p_value_vec,'intersex_OTHERS_overall.csv')
-
+write.csv(average_vec, 'OTHERS_average_by_sex.csv')
 
 # Calculate pairwise p-values
 p_value_pairwise = array(NA, c(l_cc_id, l_cc_id, 5))
