@@ -40,12 +40,13 @@ OTHERS$`lymphoid hyperplasia` = as.numeric(OTHERS$`lymphoid hyperplasia`)
 OTHERS$groupind[rownames(OTHERS) == "49"] = 1
 OTHERS$cc_id[rownames(OTHERS) == "262"] = "044"
 write.csv(OTHERS, 'cleaned_OTHERS.csv')
+
+# Regression for pair-wise comparison between strains.
 unique_cc_id = unique(OTHERS$cc_id)
 l_unique_cc_id = length(unique_cc_id)
 data_mat=matrix(NA, l_unique_cc_id, l_unique_cc_id)
 rownames(data_mat) = colnames(data_mat) = unique_cc_id
 
-# Regression for pair-wise comparison between strains.
 for (ind in 5:9) {
   for (c1 in 1:l_unique_cc_id) {
     for (c2 in 1:l_unique_cc_id) {
