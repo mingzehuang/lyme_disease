@@ -45,6 +45,7 @@ l_unique_cc_id = length(unique_cc_id)
 data_mat=matrix(NA, l_unique_cc_id, l_unique_cc_id)
 rownames(data_mat) = colnames(data_mat) = unique_cc_id
 
+# Regression for pair-wise comparison between strains.
 for (ind in 5:9) {
   for (c1 in 1:l_unique_cc_id) {
     for (c2 in 1:l_unique_cc_id) {
@@ -52,7 +53,7 @@ for (ind in 5:9) {
         data = OTHERS[OTHERS$cc_id == unique_cc_id[c1] | OTHERS$cc_id == unique_cc_id[c2], ]
         data$strainind[data$cc_id == unique_cc_id[c1]] = 0
         data$strainind[data$cc_id == unique_cc_id[c2]] = 1
-        data_mat[c1, c2]=summary(lm(`ALL ORGANS`~strainind+groupind+strainind*groupind, data=data))$coef[4, 4]
+        data_mat[c1, c2]=summary(lm(data[ ,ind]~strainind+groupind+strainind*groupind, data=data))$coef[4, 4]
       }
     }
   }
