@@ -30,6 +30,7 @@ OTHERS = cbind(cc_id, gender, groupind, strainind, OTHERS[ , -1])
 # OTHERS = OTHERS[extra != "(I)", ]
 OTHERS = OTHERS[as.numeric(rownames(OTHERS)) <= 351, ]
 OTHERS = OTHERS[OTHERS$cc_id != "042", ]
+OTHERS$groupind[as.numeric(rownames(OTHERS)) == 49] = 1
 # Set features as numeric
 OTHERS$`ALL ORGANS` = as.numeric(OTHERS$`ALL ORGANS`)
 OTHERS$HEART = as.numeric(OTHERS$HEART)
